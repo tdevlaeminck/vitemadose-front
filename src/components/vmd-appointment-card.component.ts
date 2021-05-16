@@ -156,7 +156,7 @@ export class VmdAppointmentCardComponent extends LitElement {
 
             return cardConfig.cardLink(html`
             <div class="card rounded-3 mb-5  ${classMap({
-              highlighted: cardConfig.highlighted, clickable: cardConfig.estCliquable, 
+              highlighted: cardConfig.highlighted, clickable: cardConfig.estCliquable,
               'bg-disabled': cardConfig.disabledBG,
               'search-standard': this.theme==='standard',
               'search-chronodose': this.theme==='chronodose'
@@ -211,9 +211,11 @@ export class VmdAppointmentCardComponent extends LitElement {
 
     updated(changedProperties: PropertyValues) {
         super.updated(changedProperties);
-        tippy(this.$chronodoseLabel, {
-            content: (el) => el.getAttribute('title')!
-        })
+        if (this.$chronodoseLabel) {
+          tippy(this.$chronodoseLabel, {
+              content: (el) => el.getAttribute('title')!
+          })
+        }
     }
 
     connectedCallback() {
