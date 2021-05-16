@@ -235,9 +235,9 @@ export type SearchType = "standard"|"chronodose";
 
 export class State {
 
-    @Memoize()
-    public static get current (): State {
-      return new State()
+    public static current: State
+    public static instanciate (config: { webBaseUrl: string }) {
+      State.current = new State(config)
     }
 
     private static DEPARTEMENT_VIDE: Departement = {
@@ -258,9 +258,8 @@ export class State {
 
     readonly autocomplete: Autocomplete
 
-    private constructor() {
-      const webBaseUrl = import.meta.env.BASE_URL
-      this.autocomplete = new Autocomplete(webBaseUrl, () => this.departementsDisponibles())
+    private constructor(config: { webBaseUrl: string }) {
+      this.autocomplete = new Autocomplete(config.webBaseUrl, () => this.departementsDisponibles())
     }
 
     private _lieuxParDepartement: LieuxParDepartements = new Map<CodeDepartement, LieuxParDepartement>();
